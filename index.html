@@ -10,7 +10,6 @@
 :root{
   --red:#b51f2a;
   --dark:#2f2f2f;
-  --light:#f5f5f5;
 }
 
 *{
@@ -355,230 +354,128 @@ SVG
 
 <body>
 
-<!-- PC版 -->
-
 <div class="container">
 
-  <div class="left">
+<div class="left">
 
-    <div class="owl">
+<div class="owl">
 
-      <svg viewBox="0 0 200 200">
+<svg viewBox="0 0 200 200">
 
-        <ellipse cx="100" cy="128" rx="54" ry="58" fill="#555"/>
-        <ellipse cx="100" cy="136" rx="38" ry="42" fill="#f1f1f1"/>
+<ellipse cx="100" cy="128" rx="54" ry="58" fill="#555"/>
+<ellipse cx="100" cy="136" rx="38" ry="42" fill="#f1f1f1"/>
 
-        <path class="wing-left"
-          d="M58 115 C24 124 18 152 22 174 C45 174 62 164 70 143 Z"
-          fill="#555"/>
+<path class="wing-left"
+d="M58 115 C24 124 18 152 22 174 C45 174 62 164 70 143 Z"
+fill="#555"/>
 
-        <path class="wing-right"
-          d="M142 115 C176 124 182 152 178 174 C155 174 138 164 130 143 Z"
-          fill="#555"/>
+<path class="wing-right"
+d="M142 115 C176 124 182 152 178 174 C155 174 138 164 130 143 Z"
+fill="#555"/>
 
-        <path d="M52 48 L72 63 L61 28 Z" fill="#555"/>
-        <path d="M148 48 L128 63 L139 28 Z" fill="#555"/>
+<path d="M52 48 L72 63 L61 28 Z" fill="#555"/>
+<path d="M148 48 L128 63 L139 28 Z" fill="#555"/>
 
-        <ellipse cx="100" cy="80" rx="62" ry="54" fill="#555"/>
+<ellipse cx="100" cy="80" rx="62" ry="54" fill="#555"/>
 
-        <path
-          d="M67 43 C82 60 118 60 133 43"
-          stroke="#b51f2a"
-          stroke-width="5"
-          fill="none"
-          stroke-linecap="round"
-        />
+<path
+d="M67 43 C82 60 118 60 133 43"
+stroke="#b51f2a"
+stroke-width="5"
+fill="none"
+stroke-linecap="round"
+/>
 
-        <circle cx="76" cy="83" r="26" fill="white"/>
-        <circle cx="124" cy="83" r="26" fill="white"/>
+<circle cx="76" cy="83" r="26" fill="white"/>
+<circle cx="124" cy="83" r="26" fill="white"/>
 
-        <g class="eye">
-          <circle class="pupil" cx="76" cy="83" r="12" fill="#222"/>
-          <circle cx="71" cy="77" r="4" fill="white"/>
-        </g>
+<g class="eye">
+<circle class="pupil" cx="76" cy="83" r="12" fill="#222"/>
+<circle cx="71" cy="77" r="4" fill="white"/>
+</g>
 
-        <g class="eye">
-          <circle class="pupil" cx="124" cy="83" r="12" fill="#222"/>
-          <circle cx="119" cy="77" r="4" fill="white"/>
-        </g>
+<g class="eye">
+<circle class="pupil" cx="124" cy="83" r="12" fill="#222"/>
+<circle cx="119" cy="77" r="4" fill="white"/>
+</g>
 
-        <path
-          d="M92 103 L108 103 L100 118 Z"
-          fill="#f3a024"
-        />
+<path
+d="M92 103 L108 103 L100 118 Z"
+fill="#f3a024"
+/>
 
-      </svg>
-
-    </div>
-
-    <div class="title">
-      コジローくん
-    </div>
-
-    <div class="sub">
-      就活生が欲しい情報へ<br>
-      最短で辿り着ける採用AI
-    </div>
-
-  </div>
-
-  <div class="right">
-
-    <h2>採用サイトAI</h2>
-
-    <p style="margin:10px 0 24px;color:#666;line-height:1.7;">
-      気になる質問を選択してください。<br>
-      必要な情報ページへご案内します。
-    </p>
-
-    <div id="pcMessages" class="messages">
-
-      <div class="bubble">
-        こんにちは。採用AIのコジローくんです。<br>
-        気になる質問を選んでください。
-      </div>
-
-    </div>
-
-    <div class="quick">
-
-      <button onclick="reply('未経験でも大丈夫？')">
-        未経験でも大丈夫？
-      </button>
-
-      <button onclick="reply('研修制度について')">
-        研修制度
-      </button>
-
-      <button onclick="reply('SESについて')">
-        SESについて
-      </button>
-
-      <button onclick="reply('会社の雰囲気')">
-        会社の雰囲気
-      </button>
-
-      <button onclick="reply('福利厚生')">
-        福利厚生
-      </button>
-
-    </div>
-
-    <div class="input-area">
-
-      <input
-        id="pcInput"
-        placeholder="自由入力もできます"
-        onkeypress="if(event.key==='Enter')sendPc()"
-      >
-
-      <button class="send" onclick="sendPc()">
-        送信
-      </button>
-
-    </div>
-
-  </div>
+</svg>
 
 </div>
 
-<!-- スマホ版 -->
+<div class="title">
+コジローくん
+</div>
 
-<div class="mobile-hero">
-
-  <span class="tag">採用サイトAI</span>
-
-  <h1>
-    知りたい情報へ、<br>
-    スマホで最短アクセス。
-  </h1>
-
-  <p>
-    コジローくんは、就活生が気になる情報をすぐ確認できる採用サイトナビゲーターです。
-  </p>
+<div class="sub">
+就活生が欲しい情報へ<br>
+最短で辿り着ける採用AI
+</div>
 
 </div>
 
-<div class="mobile-card">
-  右下のコジローくんをタップすると、チャットが開きます。
+<div class="right">
+
+<h2>採用サイトAI</h2>
+
+<p style="margin:10px 0 24px;color:#666;line-height:1.7;">
+気になる質問を選択してください。<br>
+必要な情報ページへご案内します。
+</p>
+
+<div id="pcMessages" class="messages">
+
+<div class="bubble">
+こんにちは。採用AIのコジローくんです。<br>
+気になる質問を選んでください。
 </div>
 
-<button class="mobile-launcher" onclick="openMobile()">
+</div>
 
-  <div class="owl">
+<div class="quick">
 
-    <svg viewBox="0 0 200 200">
-
-      <ellipse cx="100" cy="128" rx="54" ry="58" fill="#555"/>
-      <ellipse cx="100" cy="136" rx="38" ry="42" fill="#f1f1f1"/>
-
-      <path class="wing-left"
-        d="M58 115 C24 124 18 152 22 174 C45 174 62 164 70 143 Z"
-        fill="#555"/>
-
-      <path class="wing-right"
-        d="M142 115 C176 124 182 152 178 174 C155 174 138 164 130 143 Z"
-        fill="#555"/>
-
-      <path d="M52 48 L72 63 L61 28 Z" fill="#555"/>
-      <path d="M148 48 L128 63 L139 28 Z" fill="#555"/>
-
-      <ellipse cx="100" cy="80" rx="62" ry="54" fill="#555"/>
-
-      <path
-        d="M67 43 C82 60 118 60 133 43"
-        stroke="#b51f2a"
-        stroke-width="5"
-        fill="none"
-        stroke-linecap="round"
-      />
-
-      <circle cx="76" cy="83" r="26" fill="white"/>
-      <circle cx="124" cy="83" r="26" fill="white"/>
-
-      <g class="eye">
-        <circle class="pupil" cx="76" cy="83" r="12" fill="#222"/>
-        <circle cx="71" cy="77" r="4" fill="white"/>
-      </g>
-
-      <g class="eye">
-        <circle class="pupil" cx="124" cy="83" r="12" fill="#222"/>
-        <circle cx="119" cy="77" r="4" fill="white"/>
-      </g>
-
-      <path
-        d="M92 103 L108 103 L100 118 Z"
-        fill="#f3a024"
-      />
-
-    </svg>
-
-  </div>
-
+<button onclick="reply('未経験でも大丈夫？')">
+未経験でも大丈夫？
 </button>
 
-<div id="overlay" class="overlay" onclick="closeMobile()"></div>
+<button onclick="reply('研修制度について')">
+研修制度
+</button>
 
-<div id="mobileSheet" class="mobile-sheet">
+<button onclick="reply('SESについて')">
+SESについて
+</button>
 
-  <div class="mobile-header">
+<button onclick="reply('会社の雰囲気')">
+会社の雰囲気
+</button>
 
-    コジローくん
+<button onclick="reply('福利厚生')">
+福利厚生
+</button>
 
-    <button class="close" onclick="closeMobile()">
-      ×
-    </button>
+</div>
 
-  </div>
+<div class="input-area">
 
-  <div id="mobileMessages" class="messages">
+<input
+id="pcInput"
+placeholder="自由入力もできます"
+onkeypress="if(event.key==='Enter')sendPc()"
+>
 
-    <div class="bubble">
-      こんにちは。採用AIのコジローくんです。<br>
-      気になる質問を選んでください。
-    </div>
+<button class="send" onclick="sendPc()">
+送信
+</button>
 
-  </div>
+</div>
+
+</div>
 
 </div>
 
@@ -651,22 +548,6 @@ area,
 );
 
 },500);
-
-}
-
-function openMobile(){
-
-document.getElementById("mobileSheet").classList.add("open");
-
-document.getElementById("overlay").classList.add("open");
-
-}
-
-function closeMobile(){
-
-document.getElementById("mobileSheet").classList.remove("open");
-
-document.getElementById("overlay").classList.remove("open");
 
 }
 
