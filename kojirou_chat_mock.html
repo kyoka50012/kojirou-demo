@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>採用AIコジローくん</title>
+  <style>
+    :root {
+      --owl-brown: #795548;
+      --owl-dark: #5d4037;
+      --owl-light: #d7ccc8;
+      --owl-accent: #ffb74d;
+      --bg-color: #fdf6e3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+      min-height: 100vh;
+      color: var(--owl-dark);
+    }
+
+    .main-layout {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    #avatar-stage {
+      width: 45%;
+      min-width: 360px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, #fff 0%, #ffe0b2 100%);
+      overflow: hidden;
+    }
+
+    .kojiro-svg {
+      width: 300px;
+      height: 300px;
+      filter: drop-shadow(0 15px 15px rgba(0,0,0,0.1));
+      cursor: pointer;
+    }
+
+    .floating-body {
+      animation: float 4s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(1deg); }
+    }
+
+    .wing-l {
+      transform-origin: 100px 140px;
+      animation: flap-l 3s ease-in-out infinite;
+    }
+
+    .wing-r {
+      transform-origin: 200px 140px;
+      animation: flap-r 3s ease-in-out infinite;
+    }
+
+    @keyframes flap-l {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-15deg); }
+    }
+
+    @keyframes flap-r {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(15deg); }
+    }
+
+    .head-group {
+      transform-origin: 150px 150px;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .eye-open { display: block; }
+    .eye-happy,
+    .eye-surprised { display: none; }
+
+    .mood-happy .eye-open { display: none; }
+    .mood-happy .eye-happy { display: block; }
+
+    .mood-surprised .eye-open { display: none; }
+    .mood-surprised .eye-surprised { display: block; }
+
+    #chat-ui {
+      flex: 1;
+      background: white;
+      padding: 28px;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.08);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    #messages {
+      height: 220px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: var(--owl-dark);
+      padding: 10px;
+      background: #fffaf3;
+      border-radius: 18px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .bubble {
+      background: #efebe9;
+      padding: 10px 15px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+      animation: pop 0.3s ease-out;
+    }
+
+    .bubble.user {
+      background: #e3f2fd;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .question-title {
+      font-weight: bold;
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--owl-dark);
+    }
+
+    .quick-questions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .quick-questions button {
+      background: #fff3e0;
+      color: var(--owl-dark);
+      border: 1px solid #ffcc80;
+      padding: 9px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .quick-questions button:hover {
+      background: #ffe0b2;
+      transform: translateY(-1px);
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      position: relative;
+      z-index: 200;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 20px;
+      outline: none;
+      font-size: 14px;
+      background: white;
+      color: #333;
+      min-width: 0;
+    }
+
+    .send-button {
+      background: var(--owl-brown);
+      color: white;
+      border: none;
+      padding: 0 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      #avatar-stage {
+        width: 100%;
+        min-width: unset;
+        height: 38vh;
+        flex-shrink: 0;
+      }
+
+      #chat-ui {
+        height: 62vh;
+        justify-content: flex-start;
+        padding: 16px;
+      }
+
+      #messages {
+        height: 190px;
+        flex-shrink: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .kojiro-svg {
+        width: 230px;
+        height: 230px;
+      }
+
+      .quick-questions {
+        grid-template-columns: 1fr;
+      }
+
+      input {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-layout">
+    <div id="avatar-stage">
+      <svg class="kojiro-svg" viewBox="0 0 300 300" onclick="sayHello()">
+        <g class="floating-body">
+          <ellipse cx="120" cy="245" rx="10" ry="6" fill="#ffa726" />
+          <ellipse cx="180" cy="245" rx="10" ry="6" fill="#ffa726" />
+
+          <path class="wing-l" d="M100,140 Q60,140 50,190 Q80,210 105,180" fill="var(--owl-brown)" />
+          <path class="wing-r" d="M200,140 Q240,140 250,190 Q220,210 195,180" fill="var(--owl-brown)" />
+
+          <ellipse cx="150" cy="180" rx="60" ry="70" fill="var(--owl-brown)" />
+          <ellipse cx="150" cy="190" rx="45" ry="55" fill="var(--owl-light)" />
+
+          <g class="head-group" id="head">
+            <ellipse cx="150" cy="110" rx="70" ry="60" fill="var(--owl-brown)" />
+            <circle cx="120" cy="110" r="25" fill="white" />
+            <circle cx="180" cy="110" r="25" fill="white" />
+
+            <g class="eye-open">
+              <circle cx="120" cy="110" r="12" fill="#333" />
+              <circle cx="180" cy="110" r="12" fill="#333" />
+              <circle cx="124" cy="104" r="4" fill="white" />
+              <circle cx="184" cy="104" r="4" fill="white" />
+            </g>
+
+            <g class="eye-happy">
+              <path d="M110,115 Q120,100 130,115" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round" />
+              <path d="M170,115 Q180,100 190,115" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round" />
+            </g>
+
+            <g class="eye-surprised">
+              <circle cx="120" cy="110" r="15" fill="none" stroke="#333" stroke-width="2" />
+              <circle cx="120" cy="110" r="5" fill="#333" />
+              <circle cx="180" cy="110" r="15" fill="none" stroke="#333" stroke-width="2" />
+              <circle cx="180" cy="110" r="5" fill="#333" />
+            </g>
+
+            <path d="M145,125 L155,125 L150,140 Z" fill="#ffa726" />
+            <path d="M90,70 L110,80 L100,50 Z" fill="var(--owl-brown)" />
+            <path d="M210,70 L190,80 L200,50 Z" fill="var(--owl-brown)" />
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div id="chat-ui">
+      <div id="messages">
+        <div class="bubble">ホッホー！採用AIの「コジローくん」だホッ！<br>気になる質問を選んでね。</div>
+      </div>
+
+      <p class="question-title">主な質問から選ぶ</p>
+      <div class="quick-questions">
+        <button type="button" onclick="selectQuestion('未経験でも大丈夫？')">未経験でも大丈夫？</button>
+        <button type="button" onclick="selectQuestion('研修制度について')">研修制度について</button>
+        <button type="button" onclick="selectQuestion('SESについて')">SESについて</button>
+        <button type="button" onclick="selectQuestion('会社の雰囲気')">会社の雰囲気</button>
+        <button type="button" onclick="selectQuestion('職種について')">職種について</button>
+        <button type="button" onclick="selectQuestion('福利厚生について')">福利厚生について</button>
+      </div>
+
+      <div class="input-box">
+        <input type="text" id="userInput" placeholder="自由に質問もできます" onkeydown="if(event.key === 'Enter') chat()" />
+        <button class="send-button" type="button" onclick="chat()">聞く</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const head = document.getElementById('head');
+    const svg = document.querySelector('.kojiro-svg');
+    const messages = document.getElementById('messages');
+    const input = document.getElementById('userInput');
+
+    const mainAnswers = {
+      '未経験でも大丈夫？': {
+        emotion: 'happy',
+        text: '<b>コジロー:</b> 未経験からスタートしている社員もいるホー🦉 まずは研修制度や成長ロードマップを見るのがおすすめだホッ！'
+      },
+      '研修制度について': {
+        emotion: 'happy',
+        text: '<b>コジロー:</b> 研修制度について気になるホー？ 未経験でも安心して学べるように、基礎から学ぶ流れを確認するのがおすすめだホッ！'
+      },
+      'SESについて': {
+        emotion: 'surprised',
+        text: '<b>コジロー:</b> SESって不安に感じる学生さんも多いホー！まずは「どんな働き方か」を知るのがおすすめだホッ！'
+      },
+      '会社の雰囲気': {
+        emotion: 'happy',
+        text: '<b>コジロー:</b> 会社の雰囲気を知りたいなら、社員紹介やインタビューを見るのがおすすめだホー！働いている人の人柄が伝わりやすいホッ！'
+      },
+      '職種について': {
+        emotion: 'surprised',
+        text: '<b>コジロー:</b> 営業・開発・インフラなど、いろいろな職種があるホー！気になる働き方から見てみるのがおすすめだホッ！'
+      },
+      '福利厚生について': {
+        emotion: 'surprised',
+        text: '<b>コジロー:</b> 福利厚生や制度については、募集要項ページで確認するのがおすすめだホー！分からないことは採用担当に確認してね。'
+      }
+    };
+
+    function setEmotion(type) {
+      svg.classList.remove('mood-happy', 'mood-surprised');
+
+      if (type === 'happy') {
+        svg.classList.add('mood-happy');
+        head.style.transform = 'rotate(10deg)';
+      } else if (type === 'surprised') {
+        svg.classList.add('mood-surprised');
+        head.style.transform = 'translateY(-10px)';
+      } else {
+        head.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    function addMessage(text, type = '') {
+      const div = document.createElement('div');
+      div.className = 'bubble ' + type;
+      div.innerHTML = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function selectQuestion(question) {
+      addMessage('<b>あなた:</b> ' + question, 'user');
+
+      setTimeout(() => {
+        const answer = mainAnswers[question];
+        setEmotion(answer.emotion);
+        addMessage(answer.text);
+        setTimeout(() => setEmotion('default'), 3000);
+      }, 500);
+    }
+
+    function chat() {
+      const val = input.value.trim();
+      if (!val) return;
+
+      input.value = '';
+      addMessage('<b>あなた:</b> ' + val, 'user');
+
+      setTimeout(() => {
+        setEmotion('happy');
+        addMessage('<b>コジロー:</b> ホッホー！もっと詳しいことは、ぜひ面談でボクの仲間の社員に聞いてみてほしいホッ！');
+        setTimeout(() => setEmotion('default'), 3000);
+      }, 500);
+    }
+
+    function sayHello() {
+      setEmotion('happy');
+      addMessage('<b>コジロー:</b> くすぐったいホッ！応援してるホッ！');
+      setTimeout(() => setEmotion('default'), 2000);
+    }
+  </script>
+</body>
+</html>
