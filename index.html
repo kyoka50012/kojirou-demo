@@ -1,507 +1,532 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>採用AIコジローくん</title>
-  <style>
-    :root {
-      --kodawari-red: #b51f2a;
-      --dark: #2f2f2f;
-      --gray: #6b6b6b;
-      --light: #f5f5f5;
-      --white: #ffffff;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>採用AI コジローくん</title>
 
-```
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
-  background: linear-gradient(180deg, #f7f7f7 0%, #ffffff 100%);
-  color: #222;
-  min-height: 100vh;
+<style>
+:root{
+  --red:#b51f2a;
+  --dark:#2f2f2f;
+  --gray:#666;
+  --light:#f5f5f5;
+  --white:#fff;
 }
 
-.phone-page {
-  max-width: 430px;
-  margin: 0 auto;
-  min-height: 100vh;
-  padding: 24px 18px 120px;
-  background: #fff;
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family:"Hiragino Sans","Yu Gothic",sans-serif;
+  background:#fff;
+  color:#222;
 }
 
-.hero {
-  background: linear-gradient(135deg, #ffffff 0%, #eeeeee 100%);
-  border: 1px solid #e3e3e3;
-  border-radius: 28px;
-  padding: 28px 22px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+.container{
+  display:flex;
+  width:100%;
+  height:100vh;
 }
 
-.tag {
-  display: inline-block;
-  background: var(--kodawari-red);
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  margin-bottom: 14px;
+/* PC版 */
+.left{
+  width:42%;
+  min-width:420px;
+  background:linear-gradient(180deg,#2f2f2f,#1f1f1f);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
 }
 
-h1 {
-  margin: 0;
-  font-size: 27px;
-  line-height: 1.25;
-  letter-spacing: -0.04em;
+.right{
+  flex:1;
+  padding:42px;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
 }
 
-.lead {
-  margin: 14px 0 0;
-  font-size: 14px;
-  line-height: 1.8;
-  color: #555;
+.title{
+  margin-top:24px;
+  font-size:34px;
+  font-weight:bold;
 }
 
-.section { margin-top: 22px; }
-.section h2 { font-size: 18px; margin: 0 0 10px; }
-
-.card {
-  background: #fafafa;
-  border: 1px solid #e6e6e6;
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  line-height: 1.6;
+.sub{
+  margin-top:10px;
+  color:#ccc;
+  text-align:center;
+  line-height:1.7;
 }
 
-.kojiro-button {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  border: 2px solid white;
-  background: linear-gradient(135deg, #ffffff 0%, #e9e9e9 100%);
-  box-shadow: 0 12px 30px rgba(0,0,0,.26);
-  cursor: pointer;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+.messages{
+  flex:1;
+  overflow-y:auto;
+  background:#f7f7f7;
+  border-radius:24px;
+  padding:24px;
+  border:1px solid #eee;
 }
 
-.kojiro-svg {
-  width: 78px;
-  height: 78px;
-  animation: float 2.8s ease-in-out infinite;
-  transform-origin: center bottom;
+.bubble{
+  background:white;
+  padding:16px 18px;
+  border-radius:18px;
+  margin-bottom:14px;
+  line-height:1.8;
+  border:1px solid #ececec;
+  max-width:80%;
 }
 
-.owl-body { animation: breathe 2.8s ease-in-out infinite; transform-origin: 100px 125px; }
-.owl-head { animation: headTilt 3.4s ease-in-out infinite; transform-origin: 100px 88px; }
-.wing-left { animation: wingLeft 3s ease-in-out infinite; transform-origin: 62px 120px; }
-.wing-right { animation: wingRight 3s ease-in-out infinite; transform-origin: 138px 120px; }
-.eye { animation: blink 4s infinite; transform-origin: center; }
-.pupil { animation: look 4.8s ease-in-out infinite; }
-.beak { transition: transform .2s ease; transform-origin: 100px 107px; }
-
-.talking .beak { animation: talk .35s ease-in-out 5; }
-.happy .eye-open { display: none; }
-.happy .eye-smile { display: block; }
-.eye-smile { display: none; }
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+.user{
+  margin-left:auto;
+  background:#efefef;
+  border-left:5px solid var(--red);
 }
 
-@keyframes breathe {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.025); }
+.quick{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:20px;
 }
 
-@keyframes headTilt {
-  0%,100% { transform: rotate(0deg); }
-  35% { transform: rotate(-3deg); }
-  70% { transform: rotate(2deg); }
+.quick button{
+  border:none;
+  background:#f3f3f3;
+  padding:13px 18px;
+  border-radius:999px;
+  cursor:pointer;
 }
 
-@keyframes wingLeft {
-  0%,100% { transform: rotate(0deg); }
-  50% { transform: rotate(-8deg) translateY(-2px); }
+.quick button:hover{
+  background:var(--red);
+  color:white;
 }
 
-@keyframes wingRight {
-  0%,100% { transform: rotate(0deg); }
-  50% { transform: rotate(8deg) translateY(-2px); }
+.input-area{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
 }
 
-@keyframes blink {
-  0%, 45%, 100% { transform: scaleY(1); }
-  48%, 52% { transform: scaleY(.08); }
+input{
+  flex:1;
+  border:1px solid #ddd;
+  border-radius:999px;
+  padding:16px 18px;
+  font-size:16px;
+  outline:none;
 }
 
-@keyframes look {
-  0%,100% { transform: translateX(0); }
-  40% { transform: translateX(1.5px); }
-  70% { transform: translateX(-1.5px); }
+.send{
+  border:none;
+  background:var(--red);
+  color:white;
+  padding:0 24px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-@keyframes talk {
-  0%,100% { transform: scaleY(1); }
-  50% { transform: scaleY(1.45) translateY(2px); }
+/* コジローSVG */
+.owl{
+  width:240px;
+  height:240px;
+  animation:float 3s ease-in-out infinite;
 }
 
-.chat-sheet {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) translateY(105%);
-  width: min(430px, 100%);
-  height: 78vh;
-  background: white;
-  border-radius: 28px 28px 0 0;
-  box-shadow: 0 -20px 50px rgba(0,0,0,.18);
-  z-index: 30;
-  transition: transform .28s ease;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+.eye{
+  animation:blink 4s infinite;
+  transform-origin:center;
 }
 
-.chat-sheet.open { transform: translateX(-50%) translateY(0); }
-
-.chat-header {
-  background: linear-gradient(135deg, #3a3a3a 0%, #1f1f1f 100%);
-  color: white;
-  padding: 16px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 4px solid var(--kodawari-red);
+.pupil{
+  animation:look 5s ease-in-out infinite;
 }
 
-.chat-header-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: bold;
+.wing-left{
+  animation:wingLeft 3s ease-in-out infinite;
+  transform-origin:60px 120px;
 }
 
-.header-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+.wing-right{
+  animation:wingRight 3s ease-in-out infinite;
+  transform-origin:140px 120px;
 }
 
-.header-icon .kojiro-svg {
-  width: 36px;
-  height: 36px;
-  animation: none;
+.talk .beak{
+  animation:talk .3s ease-in-out 5;
 }
 
-.close-btn {
-  border: none;
-  background: rgba(255,255,255,.18);
-  color: white;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
 }
 
-.messages {
-  flex: 1;
-  overflow-y: auto;
-  background: #f7f7f7;
-  padding: 14px;
+@keyframes blink{
+  0%,45%,100%{transform:scaleY(1);}
+  48%,52%{transform:scaleY(.08);}
 }
 
-.bubble {
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
-  padding: 11px 13px;
-  border-radius: 16px;
-  margin-bottom: 10px;
-  line-height: 1.55;
-  font-size: 14px;
-  animation: pop .25s ease-out;
+@keyframes look{
+  0%,100%{transform:translateX(0);}
+  50%{transform:translateX(2px);}
 }
 
-.bubble.user {
-  background: #f1f1f1;
-  border-left: 4px solid var(--kodawari-red);
-  margin-left: 24px;
+@keyframes wingLeft{
+  0%,100%{transform:rotate(0);}
+  50%{transform:rotate(-8deg);}
 }
 
-@keyframes pop {
-  from { transform: scale(.92); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes wingRight{
+  0%,100%{transform:rotate(0);}
+  50%{transform:rotate(8deg);}
 }
 
-.quick-area {
-  padding: 12px 14px;
-  border-top: 1px solid #e5e5e5;
-  background: #fff;
+@keyframes talk{
+  0%,100%{transform:scaleY(1);}
+  50%{transform:scaleY(1.5);}
 }
 
-.quick-title {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #555;
+/* スマホ版 */
+.mobile-launcher,
+.mobile-sheet,
+.overlay{
+  display:none;
 }
 
-.quick-buttons {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
+@media(max-width:768px){
+  .container{
+    display:block;
+    height:auto;
+    min-height:100vh;
+    padding:24px 18px 120px;
+    background:#fff;
+  }
 
-.quick-buttons button {
-  white-space: nowrap;
-  border: 1px solid #d9d9d9;
-  background: #f7f7f7;
-  color: #222;
-  padding: 9px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  cursor: pointer;
-}
+  .left,
+  .right{
+    display:none;
+  }
 
-.quick-buttons button:hover {
-  border-color: var(--kodawari-red);
-  color: var(--kodawari-red);
-}
+  .mobile-hero{
+    display:block;
+    background:linear-gradient(135deg,#fff,#f1f1f1);
+    border:1px solid #e5e5e5;
+    border-radius:28px;
+    padding:28px 22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+  }
 
-.input-area {
-  display: flex;
-  gap: 8px;
-  padding: 12px 14px 16px;
-  background: white;
-  border-top: 1px solid #eee;
-}
+  .mobile-hero .tag{
+    display:inline-block;
+    background:var(--red);
+    color:white;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:14px;
+  }
 
-input {
-  flex: 1;
-  border: 1px solid #ddd;
-  border-radius: 999px;
-  padding: 12px 14px;
-  font-size: 16px;
-  outline: none;
-}
+  .mobile-hero h1{
+    margin:0;
+    font-size:27px;
+    line-height:1.3;
+  }
 
-.send {
-  border: none;
-  background: var(--kodawari-red);
-  color: white;
-  border-radius: 999px;
-  padding: 0 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+  .mobile-hero p{
+    font-size:14px;
+    color:#555;
+    line-height:1.8;
+  }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.25);
-  z-index: 25;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease;
-}
+  .mobile-card{
+    margin-top:18px;
+    background:#fafafa;
+    border:1px solid #eee;
+    border-radius:18px;
+    padding:16px;
+    font-size:14px;
+    line-height:1.6;
+  }
 
-.overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-```
+  .mobile-launcher{
+    display:flex;
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:88px;
+    height:88px;
+    border-radius:50%;
+    border:2px solid white;
+    background:#eee;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    align-items:center;
+    justify-content:center;
+    z-index:30;
+  }
 
-  </style>
+  .mobile-launcher .owl{
+    width:76px;
+    height:76px;
+  }
+
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.25);
+    z-index:35;
+  }
+
+  .overlay.open{
+    display:block;
+  }
+
+  .mobile-sheet{
+    position:fixed;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%) translateY(105%);
+    width:min(430px,100%);
+    height:78vh;
+    background:white;
+    border-radius:28px 28px 0 0;
+    box-shadow:0 -20px 50px rgba(0,0,0,.2);
+    z-index:40;
+    transition:.28s;
+    overflow:hidden;
+    flex-direction:column;
+  }
+
+  .mobile-sheet.open{
+    display:flex;
+    transform:translateX(-50%) translateY(0);
+  }
+
+  .mobile-header{
+    background:linear-gradient(135deg,#3f3f3f,#1f1f1f);
+    color:white;
+    padding:16px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:4px solid var(--red);
+    font-weight:bold;
+  }
+
+  .close{
+    border:none;
+    background:rgba(255,255,255,.18);
+    color:white;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    font-size:20px;
+  }
+
+  .mobile-sheet .messages{
+    border-radius:0;
+    border:none;
+  }
+
+  .quick{
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding-bottom:4px;
+  }
+
+  .quick button{
+    white-space:nowrap;
+  }
+}
+</style>
 </head>
+
 <body>
-  <main class="phone-page">
-    <section class="hero">
-      <span class="tag">採用サイトAI</span>
-      <h1>知りたい情報へ、<br>スマホで最短アクセス。</h1>
-      <p class="lead">
-        コジローくんは、就活生が気になる情報をすぐ確認できる採用サイトナビゲーターです。
-      </p>
-    </section>
 
-```
-<section class="section">
-  <h2>スマホ版のポイント</h2>
-  <div class="card">右下のコジローくんをタップすると、チャットが下から開きます。</div>
-  <div class="card">よくある質問は横スクロールで選択できます。</div>
-  <div class="card">自由入力は固定返答にして、誤回答リスクを抑えています。</div>
-</section>
-```
-
-  </main>
-
-  <button class="kojiro-button" onclick="openChat()" aria-label="コジローくんを開く">
-    <svg id="mainOwl" class="kojiro-svg" viewBox="0 0 200 200" role="img" aria-label="コジローくん">
-      <g class="owl-body">
+<!-- PC版 -->
+<div class="container">
+  <div class="left">
+    <div id="pcOwl" class="owl">
+      <svg viewBox="0 0 200 200">
         <ellipse cx="100" cy="128" rx="54" ry="58" fill="#555"/>
         <ellipse cx="100" cy="136" rx="38" ry="42" fill="#f1f1f1"/>
         <path class="wing-left" d="M58 115 C24 124 18 152 22 174 C45 174 62 164 70 143 Z" fill="#555"/>
         <path class="wing-right" d="M142 115 C176 124 182 152 178 174 C155 174 138 164 130 143 Z" fill="#555"/>
-      </g>
-      <g class="owl-head">
         <path d="M52 48 L72 63 L61 28 Z" fill="#555"/>
         <path d="M148 48 L128 63 L139 28 Z" fill="#555"/>
         <ellipse cx="100" cy="80" rx="62" ry="54" fill="#555"/>
-        <path d="M58 57 C80 28 125 28 146 57 C130 47 116 43 100 43 C84 43 70 47 58 57 Z" fill="#f7f7f7" opacity=".95"/>
-        <circle cx="76" cy="83" r="26" fill="#ffffff"/>
-        <circle cx="124" cy="83" r="26" fill="#ffffff"/>
-        <g class="eye-open">
-          <g class="eye">
-            <circle class="pupil" cx="76" cy="83" r="12" fill="#2f2f2f"/>
-            <circle cx="71" cy="77" r="4" fill="#ffffff"/>
-          </g>
-          <g class="eye">
-            <circle class="pupil" cx="124" cy="83" r="12" fill="#2f2f2f"/>
-            <circle cx="119" cy="77" r="4" fill="#ffffff"/>
-          </g>
-        </g>
-        <g class="eye-smile">
-          <path d="M63 86 Q76 73 89 86" stroke="#2f2f2f" stroke-width="6" fill="none" stroke-linecap="round"/>
-          <path d="M111 86 Q124 73 137 86" stroke="#2f2f2f" stroke-width="6" fill="none" stroke-linecap="round"/>
-        </g>
+        <path d="M67 43 C82 60 118 60 133 43" stroke="#b51f2a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <circle cx="76" cy="83" r="26" fill="white"/>
+        <circle cx="124" cy="83" r="26" fill="white"/>
+        <g class="eye"><circle class="pupil" cx="76" cy="83" r="12" fill="#222"/><circle cx="71" cy="77" r="4" fill="white"/></g>
+        <g class="eye"><circle class="pupil" cx="124" cy="83" r="12" fill="#222"/><circle cx="119" cy="77" r="4" fill="white"/></g>
         <path class="beak" d="M92 103 L108 103 L100 118 Z" fill="#f3a024"/>
-        <path d="M67 43 C82 60 118 60 133 43" stroke="#b51f2a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".95"/>
-      </g>
-      <ellipse cx="78" cy="186" rx="11" ry="6" fill="#f3a024"/>
-      <ellipse cx="122" cy="186" rx="11" ry="6" fill="#f3a024"/>
-    </svg>
-  </button>
+      </svg>
+    </div>
+    <div class="title">コジローくん</div>
+    <div class="sub">就活生が欲しい情報へ<br>最短で辿り着ける採用AI</div>
+  </div>
 
-  <div id="overlay" class="overlay" onclick="closeChat()"></div>
+  <div class="right">
+    <h2>採用サイトAI</h2>
+    <p>気になる質問を選択してください。必要な情報ページへご案内します。</p>
 
-  <section id="chatSheet" class="chat-sheet">
-    <div class="chat-header">
-      <div class="chat-header-title">
-        <div class="header-icon">
-          <svg class="kojiro-svg" viewBox="0 0 200 200" aria-hidden="true">
-            <ellipse cx="100" cy="128" rx="54" ry="58" fill="#555"/>
-            <ellipse cx="100" cy="136" rx="38" ry="42" fill="#f1f1f1"/>
-            <path d="M52 48 L72 63 L61 28 Z" fill="#555"/>
-            <path d="M148 48 L128 63 L139 28 Z" fill="#555"/>
-            <ellipse cx="100" cy="80" rx="62" ry="54" fill="#555"/>
-            <circle cx="76" cy="83" r="26" fill="#ffffff"/>
-            <circle cx="124" cy="83" r="26" fill="#ffffff"/>
-            <circle cx="76" cy="83" r="12" fill="#2f2f2f"/>
-            <circle cx="124" cy="83" r="12" fill="#2f2f2f"/>
-            <path d="M92 103 L108 103 L100 118 Z" fill="#f3a024"/>
-            <path d="M67 43 C82 60 118 60 133 43" stroke="#b51f2a" stroke-width="5" fill="none" stroke-linecap="round"/>
-          </svg>
-        </div>
-        コジローくん
-      </div>
-      <button class="close-btn" onclick="closeChat()">×</button>
+    <div id="pcMessages" class="messages">
+      <div class="bubble">こんにちは。採用AIのコジローくんです。<br>気になる質問を選んでください。</div>
     </div>
 
-```
-<div id="messages" class="messages">
-  <div class="bubble">
-    こんにちは。採用AIのコジローくんです。<br>
-    気になる質問を選んでください。
+    <div class="quick">
+      <button onclick="reply('未経験でも大丈夫？')">未経験でも大丈夫？</button>
+      <button onclick="reply('研修制度について')">研修制度</button>
+      <button onclick="reply('SESについて')">SESについて</button>
+      <button onclick="reply('会社の雰囲気')">会社の雰囲気</button>
+      <button onclick="reply('福利厚生')">福利厚生</button>
+    </div>
+
+    <div class="input-area">
+      <input id="pcInput" placeholder="自由入力もできます" onkeypress="if(event.key==='Enter')sendPc()"/>
+      <button class="send" onclick="sendPc()">送信</button>
+    </div>
   </div>
 </div>
 
-<div class="quick-area">
-  <div class="quick-title">主な質問から選ぶ</div>
-  <div class="quick-buttons">
-    <button onclick="selectQuestion('未経験でも大丈夫？')">未経験でも大丈夫？</button>
-    <button onclick="selectQuestion('研修制度について')">研修制度</button>
-    <button onclick="selectQuestion('SESについて')">SESについて</button>
-    <button onclick="selectQuestion('会社の雰囲気')">会社の雰囲気</button>
-    <button onclick="selectQuestion('職種について')">職種について</button>
-    <button onclick="selectQuestion('福利厚生について')">福利厚生</button>
+<!-- スマホ版 -->
+<div class="mobile-hero">
+  <span class="tag">採用サイトAI</span>
+  <h1>知りたい情報へ、<br>スマホで最短アクセス。</h1>
+  <p>コジローくんは、就活生が気になる情報をすぐ確認できる採用サイトナビゲーターです。</p>
+</div>
+
+<div class="mobile-card">右下のコジローくんをタップすると、チャットが下から開きます。</div>
+<div class="mobile-card">よくある質問は横スクロールで選択できます。</div>
+
+<button class="mobile-launcher" onclick="openMobile()">
+  <div id="mobileOwl" class="owl">
+    <svg viewBox="0 0 200 200">
+      <ellipse cx="100" cy="128" rx="54" ry="58" fill="#555"/>
+      <ellipse cx="100" cy="136" rx="38" ry="42" fill="#f1f1f1"/>
+      <path class="wing-left" d="M58 115 C24 124 18 152 22 174 C45 174 62 164 70 143 Z" fill="#555"/>
+      <path class="wing-right" d="M142 115 C176 124 182 152 178 174 C155 174 138 164 130 143 Z" fill="#555"/>
+      <path d="M52 48 L72 63 L61 28 Z" fill="#555"/>
+      <path d="M148 48 L128 63 L139 28 Z" fill="#555"/>
+      <ellipse cx="100" cy="80" rx="62" ry="54" fill="#555"/>
+      <path d="M67 43 C82 60 118 60 133 43" stroke="#b51f2a" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <circle cx="76" cy="83" r="26" fill="white"/>
+      <circle cx="124" cy="83" r="26" fill="white"/>
+      <g class="eye"><circle class="pupil" cx="76" cy="83" r="12" fill="#222"/><circle cx="71" cy="77" r="4" fill="white"/></g>
+      <g class="eye"><circle class="pupil" cx="124" cy="83" r="12" fill="#222"/><circle cx="119" cy="77" r="4" fill="white"/></g>
+      <path class="beak" d="M92 103 L108 103 L100 118 Z" fill="#f3a024"/>
+    </svg>
+  </div>
+</button>
+
+<div id="overlay" class="overlay" onclick="closeMobile()"></div>
+
+<div id="mobileSheet" class="mobile-sheet">
+  <div class="mobile-header">
+    コジローくん
+    <button class="close" onclick="closeMobile()">×</button>
+  </div>
+
+  <div id="mobileMessages" class="messages">
+    <div class="bubble">こんにちは。採用AIのコジローくんです。<br>気になる質問を選んでください。</div>
+  </div>
+
+  <div class="quick" style="padding:12px;">
+    <button onclick="replyMobile('未経験でも大丈夫？')">未経験でも大丈夫？</button>
+    <button onclick="replyMobile('研修制度について')">研修制度</button>
+    <button onclick="replyMobile('SESについて')">SESについて</button>
+    <button onclick="replyMobile('会社の雰囲気')">会社の雰囲気</button>
+    <button onclick="replyMobile('福利厚生')">福利厚生</button>
+  </div>
+
+  <div class="input-area">
+    <input id="mobileInput" placeholder="自由入力もできます" onkeypress="if(event.key==='Enter')sendMobile()"/>
+    <button class="send" onclick="sendMobile()">送信</button>
   </div>
 </div>
 
-<div class="input-area">
-  <input id="userInput" placeholder="自由に質問もできます" onkeypress="if(event.key==='Enter') chat()" />
-  <button class="send" onclick="chat()">送信</button>
-</div>
-```
+<script>
+const answers={
+  "未経験でも大丈夫？":"未経験からスタートする社員もいる想定です。まずは研修制度や成長ロードマップを見るのがおすすめです。",
+  "研修制度について":"研修制度ページでは、入社後の学習フローやサポート体制を確認できます。",
+  "SESについて":"SESについては、働き方やキャリア形成を確認することがおすすめです。",
+  "会社の雰囲気":"社員インタビューを見ることで、会社の雰囲気が伝わりやすくなります。",
+  "福利厚生":"福利厚生については募集要項ページで確認できます。"
+};
 
-  </section>
+function addMessage(area,text,type=""){
+  const div=document.createElement("div");
+  div.className="bubble "+type;
+  div.innerHTML=text;
+  area.appendChild(div);
+  area.scrollTop=area.scrollHeight;
+}
 
-  <script>
-    const sheet = document.getElementById('chatSheet');
-    const overlay = document.getElementById('overlay');
-    const messages = document.getElementById('messages');
-    const input = document.getElementById('userInput');
-    const mainOwl = document.getElementById('mainOwl');
+function animate(id){
+  const owl=document.getElementById(id);
+  owl.classList.add("talk");
+  setTimeout(()=>owl.classList.remove("talk"),1600);
+}
 
-    const mainAnswers = {
-      '未経験でも大丈夫？': '<b>コジロー:</b> 未経験からスタートしている社員もいる想定です。まずは研修制度や成長ロードマップを見るのがおすすめです。',
-      '研修制度について': '<b>コジロー:</b> 研修制度について確認したい場合は、入社後の学習フローやサポート体制を見るのがおすすめです。',
-      'SESについて': '<b>コジロー:</b> SESについて不安に感じる学生も多いため、まずは働き方や配属後のイメージを確認することが大切です。',
-      '会社の雰囲気': '<b>コジロー:</b> 会社の雰囲気を知りたい場合は、社員紹介やインタビューを見ると、働く人の人柄が伝わりやすいです。',
-      '職種について': '<b>コジロー:</b> 営業・開発・インフラなど、複数の職種から自分に合う働き方を確認できます。',
-      '福利厚生について': '<b>コジロー:</b> 福利厚生や制度については、募集要項ページで確認するのがおすすめです。詳しくは採用担当に確認してください。'
-    };
+function reply(q){
+  const area=document.getElementById("pcMessages");
+  addMessage(area,"あなた："+q,"user");
+  setTimeout(()=>{
+    animate("pcOwl");
+    addMessage(area,"コジロー："+answers[q]);
+  },500);
+}
 
-    function openChat() {
-      sheet.classList.add('open');
-      overlay.classList.add('open');
-    }
+function sendPc(){
+  const input=document.getElementById("pcInput");
+  if(!input.value.trim())return;
+  const area=document.getElementById("pcMessages");
+  addMessage(area,"あなた："+input.value,"user");
+  input.value="";
+  setTimeout(()=>{
+    animate("pcOwl");
+    addMessage(area,"コジロー：ホッホー！もっと詳しいことは、ぜひ面談でボクの仲間の社員に聞いてみてほしいホッ！");
+  },500);
+}
 
-    function closeChat() {
-      sheet.classList.remove('open');
-      overlay.classList.remove('open');
-    }
+function openMobile(){
+  document.getElementById("mobileSheet").classList.add("open");
+  document.getElementById("overlay").classList.add("open");
+}
 
-    function addMessage(text, type = '') {
-      const div = document.createElement('div');
-      div.className = 'bubble ' + type;
-      div.innerHTML = text;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
+function closeMobile(){
+  document.getElementById("mobileSheet").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
+}
 
-    function animateOwl() {
-      mainOwl.classList.add('talking', 'happy');
-      setTimeout(() => mainOwl.classList.remove('talking', 'happy'), 1800);
-    }
+function replyMobile(q){
+  const area=document.getElementById("mobileMessages");
+  addMessage(area,"あなた："+q,"user");
+  setTimeout(()=>{
+    animate("mobileOwl");
+    addMessage(area,"コジロー："+answers[q]);
+  },500);
+}
 
-    function selectQuestion(question) {
-      addMessage('<b>あなた:</b> ' + question, 'user');
-      setTimeout(() => {
-        animateOwl();
-        addMessage(mainAnswers[question]);
-      }, 450);
-    }
-
-    function chat() {
-      const val = input.value.trim();
-      if (!val) return;
-      input.value = '';
-      addMessage('<b>あなた:</b> ' + val, 'user');
-      setTimeout(() => {
-        animateOwl();
-        addMessage('<b>コジロー:</b> 詳細については、面談や採用担当への確認をおすすめします。');
-      }, 450);
-    }
-  </script>
+function sendMobile(){
+  const input=document.getElementById("mobileInput");
+  if(!input.value.trim())return;
+  const area=document.getElementById("mobileMessages");
+  addMessage(area,"あなた："+input.value,"user");
+  input.value="";
+  setTimeout(()=>{
+    animate("mobileOwl");
+    addMessage(area,"コジロー：ホッホー！もっと詳しいことは、ぜひ面談でボクの仲間の社員に聞いてみてほしいホッ！");
+  },500);
+}
+</script>
 
 </body>
 </html>
