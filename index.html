@@ -24,9 +24,9 @@ body{
   overflow:hidden;
 }
 
-/* =========================
+/* =====================
 PC版
-========================= */
+===================== */
 
 .container{
   display:flex;
@@ -136,9 +136,9 @@ input{
   font-weight:bold;
 }
 
-/* =========================
+/* =====================
 SVG
-========================= */
+===================== */
 
 .owl{
   width:240px;
@@ -210,9 +210,9 @@ SVG
   }
 }
 
-/* =========================
+/* =====================
 スマホ版
-========================= */
+===================== */
 
 .mobile-launcher,
 .mobile-sheet,
@@ -500,6 +500,28 @@ const answers={
 
 };
 
+function speak(text){
+
+if(!window.speechSynthesis) return;
+
+speechSynthesis.cancel();
+
+const utterance = new SpeechSynthesisUtterance(text);
+
+utterance.lang = "ja-JP";
+
+/* キャラクターっぽい声 */
+
+utterance.rate = 1.08;
+
+utterance.pitch = 1.45;
+
+utterance.volume = 1;
+
+speechSynthesis.speak(utterance);
+
+}
+
 function addMessage(area,text,type=""){
 
 const div=document.createElement("div");
@@ -524,6 +546,8 @@ setTimeout(()=>{
 
 addMessage(area,"コジロー："+answers[q]);
 
+speak(answers[q]);
+
 },500);
 
 }
@@ -540,12 +564,14 @@ addMessage(area,"あなた："+input.value,"user");
 
 input.value="";
 
+const response =
+"ホッホー！もっと詳しいことは、ぜひ面談でボクの仲間の社員に聞いてみてほしいホッ！";
+
 setTimeout(()=>{
 
-addMessage(
-area,
-"コジロー：ホッホー！もっと詳しいことは、ぜひ面談でボクの仲間の社員に聞いてみてほしいホッ！"
-);
+addMessage(area,"コジロー："+response);
+
+speak(response);
 
 },500);
 
